@@ -112,12 +112,12 @@ const reset = () => {
     >
       <div class="flex items-center gap-8">
         <a class="text-xl font-black tracking-tight cursor-pointer text-primary" @click="reset"
-          >remover.ai</a
+          >removerBG </a
         >
       </div>
       <div class="flex items-center gap-6 text-sm font-medium">
         <a
-          href="https://github.com"
+          href="https://github.com/SatriaAkbarRizki/removerbg"
           target="_blank"
           class="flex items-center gap-2 hover:opacity-70 transition-opacity"
         >
@@ -244,5 +244,13 @@ const reset = () => {
       :message="modalMessage"
       @close="showModal = false"
     />
+
+    <!-- Subtle Footer Credit -->
+    <footer v-if="currentView === 'home'" class="w-full py-8 text-center text-on-surface-variant/50 text-[10px]">
+      <p>
+        Image Editing Icon by Cosmin Negoita on 
+        <a href="https://icon-icons.com/authors/701-cosmin-negoita" target="_blank" class="hover:underline">Icon-Icons.com</a>
+      </p>
+    </footer>
   </div>
 </template>
