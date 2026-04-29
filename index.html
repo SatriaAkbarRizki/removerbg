@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>remover.bg - Minimalist Background Removal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#e0e3e5",
+              "on-primary": "#ffffff",
+              "secondary-container": "#d0e1fb",
+              "surface-container": "#eceef0",
+              "on-tertiary": "#ffffff",
+              "inverse-on-surface": "#eff1f3",
+              "surface-tint": "#5a5e68",
+              "on-secondary-fixed-variant": "#38485d",
+              "surface-variant": "#e0e3e5",
+              "surface-container-high": "#e6e8ea",
+              "on-surface": "#191c1e",
+              "surface-bright": "#f7f9fb",
+              "error-container": "#ffdad6",
+              error: "#ba1a1a",
+              tertiary: "#271d10",
+              "inverse-primary": "#c2c6d2",
+              "primary-container": "#2f343d",
+              surface: "#f7f9fb",
+              "on-secondary-fixed": "#0b1c30",
+              outline: "#76777c",
+              "tertiary-fixed-dim": "#d5c4b0",
+              "outline-variant": "#c6c6cb",
+              "on-error-container": "#93000a",
+              "surface-container-low": "#f2f4f6",
+              "on-primary-container": "#989ca7",
+              "on-surface-variant": "#45474b",
+              "inverse-surface": "#2d3133",
+              "on-error": "#ffffff",
+              "primary-fixed": "#dee2ee",
+              "on-secondary-container": "#54647a",
+              "surface-dim": "#d8dadc",
+              "tertiary-fixed": "#f2e0cb",
+              "on-tertiary-fixed": "#231a0d",
+              "tertiary-container": "#3d3224",
+              "secondary-fixed-dim": "#b7c8e1",
+              "primary-fixed-dim": "#c2c6d2",
+              "on-background": "#191c1e",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed": "#d3e4fe",
+              "on-primary-fixed-variant": "#424750",
+              secondary: "#505f76",
+              "on-tertiary-container": "#aa9a87",
+              "on-primary-fixed": "#171c24",
+              "on-tertiary-fixed-variant": "#514536",
+              background: "#f7f9fb",
+              "on-secondary": "#ffffff",
+              primary: "#1a1f27",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            borderRadius: {
+              none: "0",
+              sm: "0.125rem",
+              DEFAULT: "0.25rem",
+              md: "0.375rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              "2xl": "1rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-background text-primary font-sans antialiased min-h-screen flex flex-col">
+    <div id="app" class="flex-1 flex flex-col"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+services:
+  removerbg-fe:
+    build: .
+    container_name: removerbg-fe
+    restart: always
+    ports:
+      - "5173:5173"
+    networks:
+      - net_removerbg
+
+  removerbg-be:
+    build: ./backend
+    container_name: removerbg-be
+    restart: always
+    ports:
+      - "5000:5000"
+    networks:
+      - net_removerbg
+
+networks:
+  net_removerbg:
+    name: network_removerbg
