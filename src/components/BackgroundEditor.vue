@@ -161,7 +161,7 @@ const handleWheel = (e: WheelEvent) => {
                     { 
                         width: '100%',
                         maxWidth: imgDimensions.width ? `min(100%, ${imgDimensions.width}px)` : '900px',
-                        maxHeight: '70vh',
+                        maxHeight: 'calc(100vh - 200px)',
                         aspectRatio: imgDimensions.width ? `${imgDimensions.width} / ${imgDimensions.height}` : 'auto'
                     }
                 ]"
@@ -175,67 +175,67 @@ const handleWheel = (e: WheelEvent) => {
             </div>
 
             <!-- Floating Tool Bar (Positioned at bottom but absolute) -->
-            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-40 w-fit">
-                <div class="bg-surface/90 backdrop-blur-md border border-outline-variant/50 p-2 flex items-center gap-2 shadow-xl rounded-2xl">
+            <div class="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-40 w-[95%] sm:w-fit">
+                <div class="bg-surface/90 backdrop-blur-md border border-outline-variant/50 p-1.5 md:p-2 flex items-center justify-center gap-1 md:gap-2 shadow-xl rounded-2xl w-full sm:w-auto overflow-x-auto no-scrollbar">
                     
                     <!-- Remove BG Toggle -->
                     <button 
                         @click="emit('update:removeBgToggle', !removeBgToggle)"
-                        class="px-4 py-2.5 flex items-center gap-2 text-sm font-bold rounded-xl transition-all active:scale-95"
+                        class="px-3 md:px-4 py-2 md:py-2.5 flex items-center gap-2 text-sm font-bold rounded-xl transition-all active:scale-95 shrink-0"
                         :class="removeBgToggle ? 'bg-primary text-on-primary shadow-lg' : 'hover:bg-surface-container-high text-on-surface-variant'"
                     >
                         <span class="material-symbols-outlined text-[20px]" :style="removeBgToggle ? 'font-variation-settings: \'FILL\' 1' : ''">{{ removeBgToggle ? 'settings_backup_restore' : 'content_cut' }}</span>
-                        <span>{{ removeBgToggle ? 'Restore Original' : 'Remove Background' }}</span>
+                        <span class="hidden md:inline">{{ removeBgToggle ? 'Restore Original' : 'Remove Background' }}</span>
                     </button>
 
-                    <div class="w-[1px] h-8 bg-outline-variant/30 mx-1"></div>
+                    <div class="w-[1px] h-8 bg-outline-variant/30 mx-0.5 md:mx-1 shrink-0"></div>
 
                     <!-- Background Selection -->
-                    <div class="flex items-center gap-2 p-1 bg-surface-container-low rounded-xl">
+                    <div class="flex items-center gap-1 md:gap-2 p-1 bg-surface-container-low rounded-xl shrink-0">
                         <button 
                             @click="emit('update:bgType', 'transparent')"
                             v-tooltip="'Transparent'"
-                            class="w-9 h-9 rounded-lg flex items-center justify-center transition-all active:scale-90"
+                            class="w-8 h-8 md:w-9 md:h-9 rounded-lg flex items-center justify-center transition-all active:scale-90"
                             :class="bgType === 'transparent' ? 'bg-surface shadow-sm ring-1 ring-primary/20' : 'hover:bg-surface/50'"
                         >
-                            <span class="material-symbols-outlined text-[20px]">not_interested</span>
+                            <span class="material-symbols-outlined text-[18px] md:text-[20px]">not_interested</span>
                         </button>
 
                         <!-- Color Picker Wrapper -->
-                        <div class="relative w-9 h-9 rounded-lg overflow-hidden group active:scale-90 transition-transform" :class="bgType === 'color' ? 'ring-2 ring-primary ring-offset-2' : ''">
+                        <div class="relative w-8 h-8 md:w-9 md:h-9 rounded-lg overflow-hidden group active:scale-90 transition-transform" :class="bgType === 'color' ? 'ring-2 ring-primary ring-offset-2' : ''">
                             <input type="color" :value="bgType==='color'?bgColor:'#ffffff'" @input="e => onColorPick((e.target as HTMLInputElement).value)" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full p-0 z-10" />
                             <div class="w-full h-full shadow-inner border border-outline-variant/20" :style="{ backgroundColor: bgType === 'color' ? bgColor : '#ffffff' }">
                                 <div class="w-full h-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/10">
-                                    <span class="material-symbols-outlined text-white text-[16px]">palette</span>
+                                    <span class="material-symbols-outlined text-white text-[14px] md:text-[16px]">palette</span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Image Upload -->
-                        <label class="w-9 h-9 rounded-lg flex items-center justify-center cursor-pointer transition-all active:scale-90" :class="bgType==='image' ? 'bg-surface shadow-sm ring-1 ring-primary/20' : 'hover:bg-surface/50'">
-                            <span class="material-symbols-outlined text-[20px]">image</span>
+                        <label class="w-8 h-8 md:w-9 md:h-9 rounded-lg flex items-center justify-center cursor-pointer transition-all active:scale-90" :class="bgType==='image' ? 'bg-surface shadow-sm ring-1 ring-primary/20' : 'hover:bg-surface/50'">
+                            <span class="material-symbols-outlined text-[18px] md:text-[20px]">image</span>
                             <input type="file" class="hidden" accept="image/*" @change="onImageUpload" />
                         </label>
                     </div>
 
-                    <div class="w-[1px] h-8 bg-outline-variant/30 mx-1"></div>
+                    <div class="w-[1px] h-8 bg-outline-variant/30 mx-0.5 md:mx-1 shrink-0"></div>
 
                     <!-- Zoom Controls -->
-                    <div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-xl">
-                        <button @click="zoomOut" class="w-8 h-8 flex items-center justify-center hover:bg-surface rounded-lg transition-colors">
-                            <span class="material-symbols-outlined text-[18px]">remove</span>
+                    <div class="flex items-center gap-0.5 md:gap-1 bg-surface-container-low p-1 rounded-xl shrink-0">
+                        <button @click="zoomOut" class="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center hover:bg-surface rounded-lg transition-colors">
+                            <span class="material-symbols-outlined text-[16px] md:text-[18px]">remove</span>
                         </button>
-                        <span class="text-xs font-bold w-12 text-center text-primary">{{ zoomLevel }}%</span>
-                        <button @click="zoomIn" class="w-8 h-8 flex items-center justify-center hover:bg-surface rounded-lg transition-colors">
-                            <span class="material-symbols-outlined text-[18px]">add</span>
+                        <span class="text-[10px] md:text-xs font-bold w-10 md:w-12 text-center text-primary">{{ zoomLevel }}%</span>
+                        <button @click="zoomIn" class="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center hover:bg-surface rounded-lg transition-colors">
+                            <span class="material-symbols-outlined text-[16px] md:text-[18px]">add</span>
                         </button>
                     </div>
 
-                    <div class="w-[1px] h-8 bg-outline-variant/30 mx-1"></div>
+                    <div class="w-[1px] h-8 bg-outline-variant/30 mx-0.5 md:mx-1 shrink-0"></div>
 
                     <!-- Export Action -->
-                    <button @click="emit('export')" class="px-6 py-2.5 bg-primary text-on-secondary rounded-xl text-sm font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all flex items-center gap-2">
-                        <span>Export</span>
+                    <button @click="emit('export')" class="px-4 md:px-6 py-2 md:py-2.5 bg-primary text-on-secondary rounded-xl text-sm font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all flex items-center gap-2 shrink-0">
+                        <span class="hidden md:inline">Export</span>
                         <span class="material-symbols-outlined text-[18px]">download</span>
                     </button>
                 </div>
@@ -243,9 +243,9 @@ const handleWheel = (e: WheelEvent) => {
         </div>
 
         <!-- Top Left Actions (Reset) -->
-        <div class="absolute top-6 left-6 z-40">
-            <button @click="emit('reset')" class="w-10 h-10 rounded-full bg-surface shadow-lg flex items-center justify-center hover:bg-error hover:text-on-error transition-all group active:scale-90">
-                <span class="material-symbols-outlined text-[20px] transition-transform group-hover:rotate-90">close</span>
+        <div class="absolute top-4 left-4 md:top-6 md:left-6 z-40">
+            <button @click="emit('reset')" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-surface shadow-lg flex items-center justify-center hover:bg-error hover:text-on-error transition-all group active:scale-90">
+                <span class="material-symbols-outlined text-[18px] md:text-[20px] transition-transform group-hover:rotate-90">close</span>
             </button>
         </div>
     </section>

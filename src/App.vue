@@ -108,7 +108,7 @@ const reset = () => {
     <!-- TOP NAV BAR -->
     <header
       v-if="currentView !== 'export'"
-      class="fixed top-0 w-full z-50 border-b border-outline-variant/30 bg-surface/80 backdrop-blur-md h-16 px-8 md:px-12 flex justify-between items-center"
+      class="fixed top-0 w-full z-50 border-b border-outline-variant/30 bg-surface/80 backdrop-blur-md h-16 px-4 md:px-12 flex justify-between items-center"
     >
       <div class="flex items-center gap-8">
         <a class="text-xl font-black tracking-tight cursor-pointer text-primary" @click="reset"
@@ -140,11 +140,11 @@ const reset = () => {
         <main
           v-if="currentView === 'home'"
           :key="'home'"
-          class="flex-grow w-full max-w-5xl mx-auto px-8 py-20 flex flex-col items-center"
+          class="flex-grow w-full max-w-5xl mx-auto px-6 md:px-8 py-10 md:py-20 flex flex-col items-center"
         >
-          <div class="w-full text-center mb-16">
-            <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-primary mb-6">
-              Background Removal Withoud Lose Quality
+          <div class="w-full text-center mb-10 md:mb-16">
+            <h1 class="text-3xl md:text-6xl font-bold tracking-tight text-primary mb-6">
+              Background Removal Without Lose Quality
             </h1>
             <p class="text-on-surface-variant text-lg max-w-2xl mx-auto leading-relaxed">
               Upload your image and let our AI isolate your subject perfectly. Local, fast, and

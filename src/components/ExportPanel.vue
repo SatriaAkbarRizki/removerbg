@@ -147,27 +147,27 @@ const downloadImage = async () => {
 
 <template>
   <div class="bg-white text-on-surface min-h-screen flex flex-col antialiased w-full h-full relative z-[100]" @wheel="handleWheel">
-    <header class="w-full border-b border-outline-variant/30 h-16 flex items-center px-8 shrink-0 bg-surface/80 backdrop-blur-md">
+    <header class="w-full border-b border-outline-variant/30 h-16 flex items-center px-4 md:px-8 shrink-0 bg-surface/80 backdrop-blur-md">
         <button @click="emit('back')" class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors text-sm font-bold active:scale-95">
             <span class="material-symbols-outlined text-[20px]">arrow_back</span>
             <span>Back to Editor</span>
         </button>
     </header>
 
-    <main class="flex-1 w-full flex flex-col md:flex-row h-[calc(100vh-64px)] overflow-hidden">
+    <main class="flex-1 w-full flex flex-col md:flex-row md:h-[calc(100vh-64px)] overflow-y-auto md:overflow-hidden">
         
         <!-- Left: Image Preview -->
-        <section class="flex-1 border-r border-outline-variant/30 overflow-hidden flex flex-col h-full bg-surface-container-low">
-            <div class="px-8 py-4 border-b border-outline-variant/30 flex items-center justify-between bg-surface shrink-0">
-                <h2 class="text-xs font-bold uppercase tracking-widest flex items-center gap-2 opacity-60">Export Preview</h2>
-                <div class="flex items-center gap-4 bg-surface-container-high px-3 py-1.5 rounded-full">
-                    <button @click="zoomOut" class="text-on-surface-variant hover:text-primary active:scale-90 transition-all"><span class="material-symbols-outlined text-[18px]">remove</span></button>
-                    <span class="text-xs font-bold w-12 text-center">{{ zoomLevel }}%</span>
-                    <button @click="zoomIn" class="text-on-surface-variant hover:text-primary active:scale-90 transition-all"><span class="material-symbols-outlined text-[18px]">add</span></button>
+        <section class="w-full md:flex-1 border-b md:border-b-0 md:border-r border-outline-variant/30 flex flex-col bg-surface-container-low shrink-0 md:shrink">
+            <div class="px-6 md:px-8 py-3 md:py-4 border-b border-outline-variant/30 flex items-center justify-between bg-surface shrink-0">
+                <h2 class="text-[10px] md:text-xs font-bold uppercase tracking-widest flex items-center gap-2 opacity-60">Export Preview</h2>
+                <div class="flex items-center gap-3 md:gap-4 bg-surface-container-high px-2.5 py-1 md:px-3 md:py-1.5 rounded-full">
+                    <button @click="zoomOut" class="text-on-surface-variant hover:text-primary active:scale-90 transition-all"><span class="material-symbols-outlined text-[16px] md:text-[18px]">remove</span></button>
+                    <span class="text-[10px] md:text-xs font-bold w-10 md:w-12 text-center">{{ zoomLevel }}%</span>
+                    <button @click="zoomIn" class="text-on-surface-variant hover:text-primary active:scale-90 transition-all"><span class="material-symbols-outlined text-[16px] md:text-[18px]">add</span></button>
                 </div>
             </div>
 
-            <div class="flex-1 flex items-center justify-center p-8 bg-white">
+            <div class="flex-1 flex items-center justify-center p-4 md:p-8 bg-white min-h-[300px] md:min-h-0">
                 <div 
                     v-if="previewUrl || processedImage || originalImage"
                     class="relative flex items-center justify-center transition-all duration-500 ease-in-out shadow-2xl rounded-xl overflow-hidden"
@@ -182,7 +182,7 @@ const downloadImage = async () => {
                         {
                             width: '100%',
                             maxWidth: imgDimensions.width ? `min(100%, ${imgDimensions.width}px)` : '800px',
-                            maxHeight: '70vh',
+                            maxHeight: 'calc(100vh - 300px)',
                             aspectRatio: imgDimensions.width ? `${imgDimensions.width} / ${imgDimensions.height}` : 'auto'
                         }
                     ]"
@@ -197,66 +197,66 @@ const downloadImage = async () => {
         </section>
 
         <!-- Right: Export Settings -->
-        <aside class="w-full md:w-[400px] bg-surface p-10 flex flex-col gap-10 shrink-0 h-full overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.02)]">
+        <aside class="w-full md:w-[400px] bg-surface p-6 md:p-10 flex flex-col gap-8 md:gap-10 shrink-0 md:h-full overflow-y-auto shadow-[-10px_0_30px_rgba(0,0,0,0.02)]">
             <div>
-                <h1 class="text-2xl font-black tracking-tight mb-2">Export Settings</h1>
-                <p class="text-sm text-on-surface-variant leading-relaxed">Configure your final output format and quality.</p>
+                <h1 class="text-xl md:text-2xl font-black tracking-tight mb-2">Export Settings</h1>
+                <p class="text-xs md:text-sm text-on-surface-variant leading-relaxed">Configure your final output format and quality.</p>
             </div>
 
             <!-- Format -->
-            <div class="flex flex-col gap-4">
-                <span class="text-xs font-bold uppercase tracking-widest opacity-50">File Format</span>
+            <div class="flex flex-col gap-3 md:gap-4">
+                <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-50">File Format</span>
                 <div class="grid grid-cols-3 gap-2 p-1.5 bg-surface-container-high rounded-2xl">
                     <button v-for="f in ['PNG', 'JPG', 'WEBP']" :key="f" @click="format = f as any" 
                         :class="format === f ? 'bg-surface text-primary shadow-sm' : 'text-on-surface-variant hover:bg-surface/50'"
-                        class="px-2 py-3 text-xs font-bold rounded-xl transition-all active:scale-95">
+                        class="px-2 py-2.5 md:py-3 text-[10px] md:text-xs font-bold rounded-xl transition-all active:scale-95">
                         {{ f }}
                     </button>
                 </div>
             </div>
 
             <!-- Quality -->
-            <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-3 md:gap-4">
                 <div class="items-center justify-between flex">
-                    <span class="text-xs font-bold uppercase tracking-widest opacity-50">Quality</span>
+                    <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-50">Quality</span>
                     <span class="text-sm font-black text-primary">{{ quality }}%</span>
                 </div>
                 <input v-model="quality" :disabled="format==='PNG'" class="w-full accent-primary cursor-pointer disabled:opacity-20" max="100" min="1" type="range" />
             </div>
 
             <!-- Dimensions -->
-            <div class="flex flex-col gap-4">
-                <span class="text-xs font-bold uppercase tracking-widest opacity-50">Dimensions</span>
-                <div class="grid grid-cols-[1fr,auto,1fr] items-center gap-3">
+            <div class="flex flex-col gap-3 md:gap-4">
+                <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-50">Dimensions</span>
+                <div class="grid grid-cols-[1fr,auto,1fr] items-center gap-2 md:gap-3">
                     <div class="relative group">
-                        <input v-model="width" class="w-full bg-surface-container-low border border-outline-variant/30 rounded-xl px-4 py-3 text-sm font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all" type="number" />
-                        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold opacity-30 group-focus-within:opacity-100">PX</span>
+                        <input v-model="width" class="w-full bg-surface-container-low border border-outline-variant/30 rounded-xl px-3 md:px-4 py-2.5 md:py-3 text-xs md:text-sm font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all" type="number" />
+                        <span class="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 text-[8px] md:text-[10px] font-bold opacity-30 group-focus-within:opacity-100">PX</span>
                     </div>
                     <span class="text-outline-variant font-bold">×</span>
                     <div class="relative group">
-                        <input v-model="height" class="w-full bg-surface-container-low border border-outline-variant/30 rounded-xl px-4 py-3 text-sm font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all" type="number" />
-                        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold opacity-30 group-focus-within:opacity-100">PX</span>
+                        <input v-model="height" class="w-full bg-surface-container-low border border-outline-variant/30 rounded-xl px-3 md:px-4 py-2.5 md:py-3 text-xs md:text-sm font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all" type="number" />
+                        <span class="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 text-[8px] md:text-[10px] font-bold opacity-30 group-focus-within:opacity-100">PX</span>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-auto pt-10 border-t border-outline-variant/30 flex flex-col gap-8">
-                <div class="flex items-center justify-between p-4 bg-primary-container/30 rounded-2xl border border-primary-container">
-                    <div class="flex items-center gap-3 text-primary">
-                        <span class="material-symbols-outlined text-[20px]">info</span>
-                        <span class="text-xs font-bold uppercase tracking-widest">Estimated Size</span>
+            <div class="md:mt-auto pt-6 md:pt-10 border-t border-outline-variant/30 flex flex-col gap-6 md:gap-8">
+                <div class="flex items-center justify-between p-3 md:p-4 bg-primary-container/30 rounded-2xl border border-primary-container">
+                    <div class="flex items-center gap-2 md:gap-3 text-primary">
+                        <span class="material-symbols-outlined text-[18px] md:text-[20px]">info</span>
+                        <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest">Estimated Size</span>
                     </div>
-                    <span class="text-sm font-black text-primary">{{ estimatedSize }}</span>
+                    <span class="text-xs md:text-sm font-black text-primary">{{ estimatedSize }}</span>
                 </div>
                 
                 <div class="flex flex-col gap-3">
-                    <button @click="emit('reset')" class="w-full bg-surface-container-high text-on-surface-variant text-sm font-bold uppercase tracking-[0.1em] py-4 rounded-full hover:bg-surface-container-highest transition-all flex items-center justify-center gap-3 active:scale-95">
-                        <span class="material-symbols-outlined">add_photo_alternate</span>
+                    <button @click="emit('reset')" class="w-full bg-surface-container-high text-on-surface-variant text-[10px] md:text-sm font-bold uppercase tracking-[0.1em] py-3.5 md:py-4 rounded-full hover:bg-surface-container-highest transition-all flex items-center justify-center gap-2 md:gap-3 active:scale-95">
+                        <span class="material-symbols-outlined text-[20px]">add_photo_alternate</span>
                         Upload New Image
                     </button>
                     
-                    <button @click="downloadImage" class="w-full bg-primary text-on-primary text-sm font-bold uppercase tracking-[0.1em] py-5 rounded-full hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all shadow-lg flex items-center justify-center gap-3">
-                        <span class="material-symbols-outlined">download</span>
+                    <button @click="downloadImage" class="w-full bg-primary text-on-primary text-[10px] md:text-sm font-bold uppercase tracking-[0.1em] py-4 md:py-5 rounded-full hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all shadow-lg flex items-center justify-center gap-2 md:gap-3">
+                        <span class="material-symbols-outlined text-[20px]">download</span>
                         Download Image
                     </button>
                 </div>
