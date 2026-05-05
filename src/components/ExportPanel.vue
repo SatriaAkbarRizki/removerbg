@@ -172,12 +172,12 @@ const downloadImage = async () => {
                     v-if="previewUrl || processedImage || originalImage"
                     class="relative flex items-center justify-center transition-all duration-500 ease-in-out shadow-2xl rounded-xl overflow-hidden"
                     :class="[
-                        !previewUrl && bgType === 'transparent' && removeBgToggle ? 'checkerboard-inner' : '',
-                        !previewUrl && !removeBgToggle ? 'bg-white shadow-none' : ''
+                        bgType === 'transparent' && removeBgToggle && !previewUrl ? 'checkerboard-inner' : '',
+                        !removeBgToggle ? 'bg-white shadow-none' : ''
                     ]"
                     :style="[
-                        !previewUrl && removeBgToggle && bgType === 'color' ? { backgroundColor: bgColor } : {},
-                        !previewUrl && removeBgToggle && bgType === 'image' && bgImage ? { backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {},
+                        removeBgToggle && bgType === 'color' ? { backgroundColor: bgColor } : {},
+                        removeBgToggle && bgType === 'image' && bgImage ? { backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {},
                         { transform: `scale(${zoomLevel / 100})`, transformOrigin: 'center' },
                         {
                             width: '100%',
